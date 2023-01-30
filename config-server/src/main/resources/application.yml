@@ -1,0 +1,29 @@
+server:
+  error:
+    include-stacktrace: never
+spring:
+  application:
+    name: melita-config-server
+  profiles:
+    active:
+      - ${SPRING_PROFILE}
+
+---
+
+server:
+  port: 5005
+spring:
+  config:
+    activate:
+      on-profile:
+        - local
+
+---
+
+server:
+  port: 8080
+spring:
+  config:
+    activate:
+      on-profile:
+        - dev

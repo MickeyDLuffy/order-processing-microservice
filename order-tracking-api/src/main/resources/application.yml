@@ -1,0 +1,41 @@
+server:
+  error:
+    include-stacktrace: never
+spring:
+  application:
+    name: melita-order-tracking-service
+  profiles:
+    active:
+      - local
+  data:
+    mongodb:
+      host: ${mongodb-host}
+      port: ${mongodb-port}
+      database: ${mongodb-database}
+
+---
+
+server:
+  port: ${order-tracking-service-port}
+spring:
+  config:
+    activate:
+      on-profile:
+        - local
+com:
+  melita:
+    kafka:
+      topic: orders
+---
+
+server:
+  port: 8088
+spring:
+  config:
+    activate:
+      on-profile:
+        - dev
+com:
+  melita:
+    kafka:
+      topic: orders

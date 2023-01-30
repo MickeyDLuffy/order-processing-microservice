@@ -1,0 +1,94 @@
+version: '3.7'
+
+services: 
+
+  melita-gateway-service:
+    restart: always
+    image: mickeydluffy/gateway-service:latest
+    container_name: melita-gateway-service
+    environment:
+     - SPRING_PROFILE=dev
+    ports:
+      - '5000:8080'
+    depends_on:
+      - melita-config-server
+    networks:
+      - melita-network
+
+  melita-order-tracking-service:
+    restart: always
+    image: mickeydluffy/melita-order-tracking-service:latest
+    container_name: melita-order-tracking-service
+    environment:
+     - SPRING_PROFILE=dev
+    ports:
+      - '5001:8080'
+    depends_on:
+      - melita-config-server
+    networks:
+      - melita-network
+
+
+  melita-care-system:
+    restart: always
+    image: mickeydluffy/care-system:latest
+    container_name: melita-care-system
+    environment:
+     - SPRING_PROFILE=dev
+    ports:
+      - '5002:8080'
+    depends_on:
+      - melita-config-server
+    networks:
+      - melita-network
+
+
+  melita-order-fullfilment-system:
+    restart: always
+    image: mickeydluffy/order-fullfilment-system:latest
+    container_name: melita-order-fullfilment-system
+    environment:
+     - SPRING_PROFILE=dev
+    ports:
+      - '5003:8080'
+    depends_on:
+      - melita-config-server
+    networks:
+      - melita-network
+
+
+  melita-authorization-server:
+    restart: always
+    image: mickeydluffy/authorization-server:latest
+    container_name: melita-authorization-server
+    environment:
+     - SPRING_PROFILE=dev
+    ports:
+      - '5004:8080'
+    depends_on:
+      - melita-config-server
+    networks:
+      - melita-network
+
+
+  melita-config-server:
+    restart: always
+    image: mickeydluffy/config-server:latest
+    container_name: melita-config-server
+    ports:
+      - '5005:8080'
+    networks:
+      - melita-network
+
+
+  melita-mongodb-server: 
+    image: mongo:6.0
+    container_name: melita-mongodb-server
+    restart: always
+    ports:
+      - '27017:27017'
+
+
+networks:
+  melita-network:
+    driver: bridge
