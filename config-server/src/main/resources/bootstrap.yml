@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          force-pull: true
+          uri: https://github.com/MickeyDLuffy/config-server-repo.git

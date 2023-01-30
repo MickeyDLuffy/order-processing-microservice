@@ -1,0 +1,110 @@
+server:
+  error:
+    include-stacktrace: never
+spring:
+  application:
+    name: melita-gateway-service
+  profiles:
+    active:
+      - local
+  devtools:
+    add-properties: false
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "*"
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.HttpLogging: DEBUG
+
+
+---
+
+server:
+  port: ${gateway-service-port}
+spring:
+  config:
+    activate:
+      on-profile:
+        - local
+  main:
+    allow-bean-definition-overriding: true
+    web-application-type: reactive
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay
+        - RewritePath=/melita(?<segment>/?.*), $\{segment}
+      routes:
+        - id: melita_order_tracking_service
+          uri: ${order-tracking-service-host}:${order-tracking-service-port}/
+          predicates:
+            - Path=/melita/api/v1/orders/**
+            - Method=GET,POST
+      filter:
+        retry:
+          enabled: false
+      predicate:
+        weight:
+          enabled: false
+      httpserver:
+        wiretap: true
+      httpclient:
+        pool:
+          max-idle-time: 4000
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${authorization-server-host}:${authorization-server-port}
+
+
+---
+
+server:
+  port: 8080
+spring:
+  config:
+    activate:
+      on-profile:
+        - dev
+  main:
+    allow-bean-definition-overriding: true
+    web-application-type: reactive
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay
+        - RewritePath=/melita(?<segment>/?.*), $\{segment}
+      routes:
+        - id: melita_order_tracking_service
+          uri: ${order-tracking-service-host}:${order-tracking-service-port}/
+          predicates:
+            - Path=/melita/api/v1/orders/**
+            - Method=GET,POST
+      filter:
+        retry:
+          enabled: false
+      predicate:
+        weight:
+          enabled: false
+      httpserver:
+        wiretap: true
+      httpclient:
+        pool:
+          max-idle-time: 4000
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${authorization-server-host}:${authorization-server-port}

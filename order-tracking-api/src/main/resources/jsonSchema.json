@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "customer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "firstname": "string",
+          "lastname": "string",
+          "telephone": "string",
+          "address": "string"
+        }
+      }
+    },
+    "installationDetail": {
+      "type": "object",
+      "properties": {
+        "customerId": {
+          "type": "integer"
+        },
+        "installationAddress": {
+          "type": "string"
+        },
+        "preferredInstallationDate": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "customerId",
+        "installationAddress",
+        "preferredInstallationDate"
+      ]
+    },
+    "products": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "price": {
+              "type": "number"
+            },
+            "quantity": {
+              "type": "integer"
+            },
+            "description": {
+              "type": "string"
+            },
+            "package": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "productId": {
+                  "type": "integer"
+                },
+                "cost": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "description",
+                "productId",
+                "cost"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "package"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "price": {
+              "type": "number"
+            },
+            "quantity": {
+              "type": "integer"
+            },
+            "description": {
+              "type": "string"
+            },
+            "package": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "productId": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "description",
+                "productId"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "price",
+            "quantity",
+            "description",
+            "package"
+          ]
+        }
+      ]
+    },
+    "totalAmount": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "customer",
+    "installationDetail",
+    "products"
+  ]
+}
