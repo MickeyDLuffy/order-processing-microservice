@@ -35,6 +35,7 @@ public class OrderServiceImpl implements OrderService {
                 .supplyAsync(() -> orderConverter.apply(order), Executors.newFixedThreadPool(5))
                 .thenApply(orderRepository::save)
                 .thenApply(orderToOrderResponse)
+                .thenApply(eventPublisher::publishOrderEvent)
                 .exceptionally(ex -> {
                     throw new OrderPublishException("Publishing was unsuccessful" + ex.getCause(), ex);
                 });

@@ -16,6 +16,9 @@ public class OrderRequest {
     private List<Product> products;
     private double totalAmount;
 
+    private static class Customer {
+
+    }
     @Getter
     @Setter
     @ToString
