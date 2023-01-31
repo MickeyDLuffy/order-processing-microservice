@@ -3,7 +3,7 @@ name: Build test and Deploy to docker hub
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
 
