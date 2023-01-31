@@ -21,6 +21,7 @@ services:
     container_name: melita-order-tracking-service
     environment:
      - SPRING_PROFILE=dev
+     - SPRING_CLOUD_CONFIG_URI=http://melita-config-server:5005
     ports:
       - '5001:8080'
     depends_on:
