@@ -15,4 +15,4 @@ RUN mvn clean package -DskipTests
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "./target/order-tracking-api.jar"]
+CMD ["java", "-jar", "./target/order-tracking-service.jar"]
