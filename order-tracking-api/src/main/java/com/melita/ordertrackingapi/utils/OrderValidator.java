@@ -16,11 +16,6 @@ import java.io.IOException;
 @Component
 public record OrderValidator(JsonSchema jsonSchema, ObjectMapper objectMapper) {
 
-    public void validatePayload(String orderJson) {
-        JsonNode orderRequestJsonNode = getJsonNodeFromStringContent(orderJson);
-        validate(orderRequestJsonNode);
-    }
-    
     public void validatePayload(OrderRequest order) {
         try {
             String orderJson = objectMapper.writeValueAsString(order);
@@ -31,7 +26,7 @@ public record OrderValidator(JsonSchema jsonSchema, ObjectMapper objectMapper) {
         }
     }
 
-    private void validate(JsonNode orderRequestJsonNode) {
+    void validate(JsonNode orderRequestJsonNode) {
         ValidationResult validationResult = jsonSchema.validateAndCollect(orderRequestJsonNode);
 
         final var validationMessages = validationResult.getValidationMessages();
@@ -41,7 +36,7 @@ public record OrderValidator(JsonSchema jsonSchema, ObjectMapper objectMapper) {
         }
     }
 
-    private JsonNode getJsonNodeFromStringContent(String content) {
+    JsonNode getJsonNodeFromStringContent(String content) {
         try {
             return objectMapper.readTree(content);
         } catch (IOException e) {

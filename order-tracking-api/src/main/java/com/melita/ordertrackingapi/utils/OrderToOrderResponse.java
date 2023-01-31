@@ -5,12 +5,13 @@ import com.melita.ordertrackingapi.model.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
+
 @Component
 public class OrderToOrderResponse implements Function<Order, OrderResponse> {
 
     @Override
     public OrderResponse apply(Order order) {
-        return  OrderResponse.builder()
+        return OrderResponse.builder()
                 .customer(order.getCustomer())
                 .orderNumber(order.getOrderNumber())
                 .installationDetail(order.getInstallationDetail())

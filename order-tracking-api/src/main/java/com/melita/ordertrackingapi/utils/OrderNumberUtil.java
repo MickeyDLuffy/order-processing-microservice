@@ -6,6 +6,7 @@ import java.security.SecureRandom;
 import java.util.Calendar;
 import java.util.Random;
 import java.util.function.Supplier;
+
 @Component
 public class OrderNumberUtil implements Supplier<String> {
     @Override
@@ -21,7 +22,7 @@ public class OrderNumberUtil implements Supplier<String> {
                 .append(dash)
                 .append(cal.get(Calendar.DAY_OF_MONTH))
                 .append(dash)
-                .append(1000  + rand.nextInt(9000))
+                .append(1000 + rand.nextInt(9000))
                 .toString();
     }
 }
