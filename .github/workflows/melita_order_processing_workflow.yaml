@@ -121,8 +121,8 @@ jobs:
             with:
              context: ./order-tracking-api
              push: true
-             tags: mickeydluffy/order-tracking-api:latest
-             cache-from: type=registry,ref=mickeydluffy/order-tracking-api:latest
+             tags: mickeydluffy/melita-order-tracking-service:latest
+             cache-from: type=registry,ref=mickeydluffy/melita-order-tracking-service:latest
              cache-to: type=inline
 
   care-system:
@@ -147,8 +147,8 @@ jobs:
           with:
            context: ./care-system
            push: true
-           tags: mickeydluffy/care-system:latest
-           cache-from: type=registry,ref=mickeydluffy/care-system:latest
+           tags: mickeydluffy/melita-care-system:latest
+           cache-from: type=registry,ref=mickeydluffy/melita-care-system:latest
            cache-to: type=inline
 
   order-fullfilment-system:
@@ -173,6 +173,6 @@ jobs:
           with:
            context: ./order-fullfilment-system
            push: true
-           tags: mickeydluffy/order-fullfilment-system:latest
-           cache-from: type=registry,ref=mickeydluffy/order-fullfilment-system:latest
+           tags: mickeydluffy/melita-order-fullfilment-system:latest
+           cache-from: type=registry,ref=mickeydluffy/melita-order-fullfilment-system:latest
            cache-to: type=inline
