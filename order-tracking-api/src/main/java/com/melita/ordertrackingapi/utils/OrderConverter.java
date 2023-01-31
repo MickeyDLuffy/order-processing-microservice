@@ -12,8 +12,8 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class OrderConverter implements Function<OrderRequest, Order> {
 
-    private final  OrderNumberUtil orderNumberUtil;
-    private final  CalculateTotalAmount calculateTotalAmount;
+    private final OrderNumberUtil orderNumberUtil;
+    private final CalculateTotalAmount calculateTotalAmount;
 
     @Override
     public Order apply(OrderRequest orderRequest) {

@@ -1,6 +1,9 @@
 package com.melita.ordertrackingapi.model;
 
-import com.melita.ordertrackingapi.dto.*;
+import com.melita.ordertrackingapi.dto.CustomerDto;
+import com.melita.ordertrackingapi.dto.InstallationDetail;
+import com.melita.ordertrackingapi.dto.OrderStatus;
+import com.melita.ordertrackingapi.dto.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
