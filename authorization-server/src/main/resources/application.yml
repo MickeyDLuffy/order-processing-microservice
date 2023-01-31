@@ -26,7 +26,6 @@ spring:
     activate:
       on-profile:
         - local
-    import: optional:configserver:http://localhost:5005
 
 ---
 
@@ -37,4 +36,3 @@ spring:
     activate:
       on-profile:
         - dev
-    import: optional:configserver:http://localhost:5005
