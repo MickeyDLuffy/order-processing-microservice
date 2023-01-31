@@ -1,0 +1,178 @@
+name: Build test and Deploy to docker hub
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  checkout_melita_codebase:
+    name: Cloning codebase
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Upload cloned repository for next job
+        uses: actions/upload-artifact@v3
+        with:
+          name: melita_codebase
+          path: .
+  
+  authorization-server:
+      name: Building the authorization server
+      runs-on: ubuntu-latest
+      needs: [checkout_melita_codebase]
+
+      steps:
+          - name: Download cloned repository from previous job
+            uses: actions/download-artifact@v3
+            with:
+              name: melita_codebase
+
+          - name: Login to DockerHub
+            uses: docker/login-action@v1
+            with:
+              username: ${{secrets.DOCKER_USERNAME}}
+              password: ${{secrets.MELITA_DOCKER_ACCESS_TOKEN}}
+
+          - name: Build and Push authorization server
+            uses: docker/build-push-action@v2
+            with:
+              context: ./authorization-server
+              push: true
+              tags: mickeydluffy/authorization-server:latest
+              cache-from: type=registry,ref=mickeydluffy/authorization-server:latest
+              cache-to: type=inline
+
+  gateway-service:
+      name: Building gateway
+      runs-on: ubuntu-latest
+      needs: [checkout_melita_codebase]
+
+      steps:
+          - name: Download cloned repository from previous job
+            uses: actions/download-artifact@v3
+            with:
+              name: melita_codebase
+
+          - name: Login to DockerHub
+            uses: docker/login-action@v1
+            with:
+             username: ${{secrets.DOCKER_USERNAME}}
+             password: ${{secrets.MELITA_DOCKER_ACCESS_TOKEN}}
+
+          - name: Build and Push gateway api
+            uses: docker/build-push-action@v2
+            with:
+             context: ./gateway-service
+             push: true
+             tags: mickeydluffy/gateway-service:latest
+             cache-from: type=registry,ref=mickeydluffy/gateway-service:latest
+             cache-to: type=inline
+
+  config-server:
+      name: Building config server
+      runs-on: ubuntu-latest
+      needs: [checkout_melita_codebase]
+
+      steps:
+          - name: Download cloned repository from previous job
+            uses: actions/download-artifact@v3
+            with:
+              name: melita_codebase
+
+          - name: Login to DockerHub
+            uses: docker/login-action@v1
+            with:
+              username: ${{secrets.DOCKER_USERNAME}}
+              password: ${{secrets.MELITA_DOCKER_ACCESS_TOKEN}}
+
+          - name: Build and Push config-server
+            uses: docker/build-push-action@v2
+            with:
+             context: ./config-server
+             push: true
+             tags: mickeydluffy/config-server:latest
+             cache-from: type=registry,ref=mickeydluffy/config-server:latest
+             cache-to: type=inline
+  
+  order-tracking-api:
+      name: Building order tracking api
+      runs-on: ubuntu-latest
+      needs: [checkout_melita_codebase]
+
+      steps:
+          - name: Download cloned repository from previous job
+            uses: actions/download-artifact@v3
+            with:
+              name: melita_codebase
+
+          - name: Login to DockerHub
+            uses: docker/login-action@v1
+            with:
+             username: ${{secrets.DOCKER_USERNAME}}
+             password: ${{secrets.MELITA_DOCKER_ACCESS_TOKEN}}
+
+          - name: Build and Push order api
+            uses: docker/build-push-action@v2
+            with:
+             context: ./order-tracking-api
+             push: true
+             tags: mickeydluffy/melita-order-tracking-service:latest
+             cache-from: type=registry,ref=mickeydluffy/melita-order-tracking-service:latest
+             cache-to: type=inline
+
+  care-system:
+    name: Building care system
+    runs-on: ubuntu-latest
+    needs: [ checkout_melita_codebase ]
+
+    steps:
+        - name: Download cloned repository from previous job
+          uses: actions/download-artifact@v3
+          with:
+            name: melita_codebase
+
+        - name: Login to DockerHub
+          uses: docker/login-action@v1
+          with:
+           username: ${{secrets.DOCKER_USERNAME}}
+           password: ${{secrets.MELITA_DOCKER_ACCESS_TOKEN}}
+
+        - name: Build and Push care system api
+          uses: docker/build-push-action@v2
+          with:
+           context: ./care-system
+           push: true
+           tags: mickeydluffy/melita-care-system:latest
+           cache-from: type=registry,ref=mickeydluffy/melita-care-system:latest
+           cache-to: type=inline
+
+  order-fullfilment-system:
+    name: Building order fulfilment system
+    runs-on: ubuntu-latest
+    needs: [ checkout_melita_codebase ]
+
+    steps:
+        - name: Download cloned repository from previous job
+          uses: actions/download-artifact@v3
+          with:
+            name: melita_codebase
+
+        - name: Login to DockerHub
+          uses: docker/login-action@v1
+          with:
+           username: ${{secrets.DOCKER_USERNAME}}
+           password: ${{secrets.MELITA_DOCKER_ACCESS_TOKEN}}
+
+        - name: Build and Push care system api
+          uses: docker/build-push-action@v2
+          with:
+           context: ./order-fullfilment-system
+           push: true
+           tags: mickeydluffy/melita-order-fullfilment-system:latest
+           cache-from: type=registry,ref=mickeydluffy/melita-order-fullfilment-system:latest
+           cache-to: type=inline

@@ -1,0 +1,40 @@
+server:
+  error:
+    include-stacktrace: never
+spring:
+  application:
+    name: melita-authorization-server
+  profiles:
+    active:
+      - local
+  devtools:
+    add-properties: false
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
+
+
+---
+
+server:
+  port: ${authorization-server-port}
+spring:
+  config:
+    activate:
+      on-profile:
+        - local
+    import: optional:configserver:http://localhost:5005
+
+---
+
+server:
+  port: 8080
+spring:
+  config:
+    activate:
+      on-profile:
+        - dev
+    import: optional:configserver:http://localhost:5005
