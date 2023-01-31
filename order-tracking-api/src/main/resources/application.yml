@@ -16,7 +16,7 @@ spring:
 ---
 
 server:
-  port: ${order-tracking-service-port}
+  port: 5000
 spring:
   config:
     activate:

@@ -92,6 +92,7 @@ services:
     image: confluentinc/cp-kafka
     ports:
       - "9092:9092"
+    container_name: kafka
     environment:
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
       - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
