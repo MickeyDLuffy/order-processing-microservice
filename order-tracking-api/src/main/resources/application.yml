@@ -6,7 +6,7 @@ spring:
     name: melita-order-tracking-service
   profiles:
     active:
-      - local
+      - ${SPRING_PROFILE}
   data:
     mongodb:
       host: ${mongodb-host}
