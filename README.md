@@ -34,7 +34,7 @@ The Ordesa microservices communicate with each other using Apache Kafka, a distr
 
 The API documentation for at 
 
-- [Order Tracking API](https://api.postman.com/collections/2532349-7e6a372c-c23a-4bc4-968d-e21bdc6c09e8?access_key=PMAT-01GR2NJR782DETTHBYEG6DXPED)
+- Copy the link [Order Tracking API](https://api.postman.com/collections/2532349-7e6a372c-c23a-4bc4-968d-e21bdc6c09e8?access_key=PMAT-01GR2NJR782DETTHBYEG6DXPED)
 - Go to postman and import collection (Choose link and paste the link above)
 - read the documentations about the collection in postman
 

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public record KafkaEventPublisher(ApplicationConfiguration applicationConfiguration,
                                   KafkaTemplate<String, OrderResponse> kafkaTemplate) {
-
     public OrderResponse publishOrderEvent(OrderResponse payload) {
         kafkaTemplate.sendDefault(applicationConfiguration.getKafka().getTopic(), payload);
         return payload;
