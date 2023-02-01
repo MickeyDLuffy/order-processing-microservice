@@ -10,7 +10,7 @@ spring:
   data:
     mongodb:
       host: ${mongodb-host}
-      port: ${mongodb-port}
+      port: 27017
       database: ${mongodb-database}
 
 ---
