@@ -114,6 +114,14 @@ services:
     networks:
       - melita-network
 
+  sonarqube:
+    image: sonarqube
+    ports:
+      - "9000:9000"
+    container_name: sonarqube
+    networks:
+      - melita-network
+
 networks:
   melita-network:
     driver: bridge
